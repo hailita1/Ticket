@@ -36,6 +36,7 @@
         android:id="@+id/ListView"
         android:layout_width="414dp"
         android:layout_height="594dp"
+        android:dividerHeight="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"

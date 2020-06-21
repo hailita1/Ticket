@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     FloatingActionButton floatingActionButton;
     DBTicket dbTicket = new DBTicket(this);
+    ArrayList<Ticket> songs;
+    TicketAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton = findViewById(R.id.floatingActionButton);
         registerForContextMenu(listView);
         dbTicket.createDefaultNotesIfNeed();
-        final ArrayList<Ticket> songs = dbTicket.getAllSongs();
-        final TicketAdapter customAdapter = new TicketAdapter(this, songs);
+        songs = dbTicket.getAllSongs();
+        customAdapter = new TicketAdapter(this, songs);
         listView.setAdapter(customAdapter);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,9 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        final ArrayList<Ticket>[] songs = new ArrayList[]{dbTicket.getAllSongs()};
-        final TicketAdapter[] customAdapter = {new TicketAdapter(this, songs[0])};
-        listView.setAdapter(customAdapter[0]);
+        listView.setAdapter(customAdapter);
         final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         final int pos = info.position;
         Intent myActivity;
@@ -101,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Ticket song = (Ticket) listView.getAdapter().getItem(pos);
                         dbTicket.deleteWord(song);
-                        songs[0] = dbTicket.getAllSongs();
-                        customAdapter[0] = new TicketAdapter(MainActivity.this, songs[0]);
-                        listView.setAdapter(customAdapter[0]);
+                        songs = dbTicket.getAllSongs();
+                        customAdapter = new TicketAdapter(MainActivity.this, songs);
+                        listView.setAdapter(customAdapter);
                     }
                 });
                 builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -123,13 +123,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
-            final ArrayList<Ticket> songs = dbTicket.getAllSongs();
-            final TicketAdapter customAdapter = new TicketAdapter(this, songs);
+            songs = dbTicket.getAllSongs();
+            customAdapter = new TicketAdapter(this, songs);
             listView.setAdapter(customAdapter);
         }
         if (requestCode == 200 && resultCode == RESULT_OK) {
-            final ArrayList<Ticket> songs = dbTicket.getAllSongs();
-            final TicketAdapter customAdapter = new TicketAdapter(this, songs);
+            songs = dbTicket.getAllSongs();
+            customAdapter = new TicketAdapter(this, songs);
             listView.setAdapter(customAdapter);
         }
     }

@@ -13,7 +13,7 @@ public class DBTicket extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Tên cơ sở dữ liệu.
-    private static final String DATABASE_NAME = "DBTicket1";
+    private static final String DATABASE_NAME = "DBTicket99";
 
     // Tên bảng: Word.
     private static final String TABLE_TICKET = "Ticket";
@@ -49,11 +49,11 @@ public class DBTicket extends SQLiteOpenHelper {
         int count = this.getSongsCount();
         if (count == 0) {
             Ticket ticket = new Ticket(1, "Hà Nội", "Thái Nguyên", 1, 1);
-            Ticket ticket1 = new Ticket(2, "Hà Nội", "Thái Nguyên", 2, 0);
-            Ticket ticket2 = new Ticket(3, "Hà Nội", "Thái Nguyên", 3, 0);
-            Ticket ticket3 = new Ticket(4, "Hà Nội", "Thái Nguyên", 4, 1);
-            Ticket ticket4 = new Ticket(5, "Hà Nội", "Thái Nguyên", 5, 0);
-            Ticket ticket5 = new Ticket(6, "Hà Nội", "Thái Nguyên", 6, 1);
+            Ticket ticket1 = new Ticket(2, "Huế", "Hải Phòng", 2, 0);
+            Ticket ticket2 = new Ticket(3, "Bến Tre", "Hồ Chí Minh", 3, 0);
+            Ticket ticket3 = new Ticket(4, "Bạc Liêu", "Quảng Ninh", 4, 1);
+            Ticket ticket4 = new Ticket(5, "Sơn La", "Đà Nẵng", 5, 0);
+            Ticket ticket5 = new Ticket(6, "Ninh Bình", "Cà Mau", 6, 1);
 
             this.addSong(ticket);
             this.addSong(ticket1);
@@ -94,8 +94,7 @@ public class DBTicket extends SQLiteOpenHelper {
 //        Log.i(TAG, "DBWord.updateWord ... " + word.getOriginal_Text());
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_TICKET, COLUMN_ID + " = ?",
-                new String[]{String.valueOf(word.getId())});
+        db.delete(TABLE_TICKET, COLUMN_ID + " = ?", new String[]{String.valueOf(word.getId())});
         db.close();
     }
 
